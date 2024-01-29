@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"net"
 )
@@ -31,6 +32,22 @@ func main() {
 	if err != nil {
 		log.Printf("error accepting connection, error: %s", err)
 	}
+
+	bserver := chooseBackend()
+	proxy(bserver, conn)
+
+}
+
+func proxy(addr string, c net.Conn) error {
+	bc, err := net.Dial("tcp", addr)
+
+	if err != nil {
+		log.Fatalf("error connecting to backend server : %s, error: %s", addr, err)
+	}
+
+	go io.Copy(bc, c)
+
+	go io.Copy(c, bc)
 
 }
 

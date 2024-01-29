@@ -27,3 +27,8 @@ func main() {
 	defer listener.Close()
 
 }
+
+func proxy() string {
+	//TODO: Choose randomly
+	return servers[0]
+}

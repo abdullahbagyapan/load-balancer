@@ -1,5 +1,10 @@
 package main
 
+import (
+	"log"
+	"net"
+)
+
 var (
 	listenAddr = "localhost:8080"
 
@@ -12,5 +17,13 @@ var (
 )
 
 func main() {
+
+	listener, err := net.Listen("tcp", listenAddr)
+
+	if err != nil {
+		log.Fatalf("error listening %s, error: %s", listenAddr, err)
+	}
+
+	defer listener.Close()
 
 }

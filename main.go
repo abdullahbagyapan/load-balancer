@@ -48,7 +48,7 @@ func proxy(addr string, c net.Conn) error {
 	go io.Copy(bc, c)
 
 	go io.Copy(c, bc)
-
+	return nil
 }
 
 func chooseBackend() string {

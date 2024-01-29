@@ -34,7 +34,7 @@ func main() {
 
 }
 
-func proxy() string {
+func chooseBackend() string {
 	//TODO: Choose randomly
 	return servers[0]
 }

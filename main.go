@@ -26,6 +26,12 @@ func main() {
 
 	defer listener.Close()
 
+	conn, err := listener.Accept()
+
+	if err != nil {
+		log.Printf("error accepting connection, error: %s", err)
+	}
+
 }
 
 func proxy() string {

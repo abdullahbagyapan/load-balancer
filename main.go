@@ -27,17 +27,24 @@ func main() {
 
 	defer listener.Close()
 
-	conn, err := listener.Accept()
+	for {
+		conn, err := listener.Accept()
 
-	if err != nil {
-		log.Printf("error accepting connection, error: %s", err)
+		if err != nil {
+			log.Printf("error accepting connection, error: %s", err)
+		}
+
+		go func() {
+			bserver := chooseBackend()
+
+			err := proxy(bserver, conn)
+
+			if err != nil {
+				log.Printf("WARNING: proxying failed %v", err)
+			}
+		}()
+
 	}
-
-	bserver := chooseBackend()
-
-	ch := make(chan error)
-
-	ch <- proxy(bserver, conn)
 
 }
 

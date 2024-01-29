@@ -15,6 +15,8 @@ var (
 		"localhost:5002",
 		"localhost:5003	",
 	}
+
+	counter = 0
 )
 
 func main() {
@@ -62,6 +64,9 @@ func proxy(addr string, c net.Conn) error {
 }
 
 func chooseBackend() string {
-	//TODO: Choose randomly
-	return servers[0]
+
+	server := servers[counter%len(servers)]
+	counter++
+
+	return server
 }

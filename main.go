@@ -34,7 +34,10 @@ func main() {
 	}
 
 	bserver := chooseBackend()
-	proxy(bserver, conn)
+
+	ch := make(chan error)
+
+	ch <- proxy(bserver, conn)
 
 }
 
